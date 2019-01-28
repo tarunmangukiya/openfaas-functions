@@ -6,3 +6,7 @@ functions:
     lang: node8-express
     handler: ./image-resize
     image: image-resize:latest
+    environment:
+      read_timeout: "10s"
+      write_timeout: "10s"
+      exec_timeout: "10s"
