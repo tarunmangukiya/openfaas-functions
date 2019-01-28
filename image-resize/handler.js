@@ -36,7 +36,7 @@ module.exports = (event, context) => {
 
         // If the file is Image
         // And has to be resized
-        if (event.query.width && event.query.height && (extension === '.png' || extension === '.jpg' || extension === '.jpeg')) {
+        if ((event.query.width || event.query.height) && (extension === '.png' || extension === '.jpg' || extension === '.jpeg')) {
           const width = event.query.width ? Number(event.query.width) : null;
           const height = event.query.height ? Number(event.query.height) : null;
 
