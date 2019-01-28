@@ -21,6 +21,8 @@ module.exports = (event, context) => {
 
     if (download) {
       headers['content-disposition'] = `attachment; filename="${name}"`;
+    } else {
+      headers['content-disposition'] = `inline; filename="${name}"`;
     }
 
     request.get({
@@ -30,6 +32,8 @@ module.exports = (event, context) => {
       if (error) {
         context.fail(error);
       } else {
+        headers['Content-Type'] = response.headers['content-type'];
+
         // If the file is Image
         // And has to be resized
         if (event.query.width && event.query.height && (extension === '.png' || extension === '.jpg' || extension === '.jpeg')) {
@@ -38,7 +42,6 @@ module.exports = (event, context) => {
 
           const image = sharp(body);
           image.resize(width, height, { fit }).toBuffer().then((buffer) => {
-            headers['Content-Type'] = response.headers['content-type'];
 
             context
               .status(200)
