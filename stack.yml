@@ -1,0 +1,8 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+functions:
+  image-resize:
+    lang: node8-express
+    handler: ./image-resize
+    image: image-resize:latest
